@@ -12,28 +12,56 @@
                 <img src="search.png" id="searchbarimg">
             </div>
             <div id="searchresults">
-
             </div>
         </div>
         <script>
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+            }
+
             const searchbar = document.getElementById("searchbar")
             const searchresults = document.getElementById("searchresults")
 
             let searchid = 0
             searchbar.addEventListener("input",async () => {
                 const text = searchbar.value.trim()
+                while (searchresults.firstChild) {
+                    searchresults.removeChild(searchresults.lastChild)
+                }
                 if (text.length > 0) {
                     searchid = searchid + 1
                     const searchidrn = searchid
-                    const req = await fetch(`https://six-doors-tap.loca.lt/search?q=${text}&type=track`,{
-                        headers: {
-                            "bypass-tunnel-reminder": "true"
-                        }
-                    })
-                    if (req.status === 200 && searchid === searchidrn) {
-                        console.log(await req.json())
-                        while (searchresults.firstChild) {
-                            searchresults.removeChild(searchresults.lastChild)
+                    await sleep(200)
+                    if (searchidrn === searchid) {
+                        const req = await fetch(`http://localhost:6969/search?q=${text}&type=track`,{
+                            headers: {
+                                "bypass-tunnel-reminder": "1"
+                            }
+                        })
+                        if (req.status === 200 && searchid === searchidrn) {
+                            const json = await req.json()
+                            if ("tracks" in json) {
+                                while (searchresults.firstChild) {
+                                    searchresults.removeChild(searchresults.lastChild)
+                                }
+                                const items = json.tracks.items
+                                for (const item of items) {
+                                    const scrollitem = document.createElement("div")
+                                    scrollitem.className = "searchresult"
+
+                                    const scrollitemimage = document.createElement("img")
+                                    
+                                    if ("album" in item && "images" in item.album) {
+                                        scrollitemimage.src = item.album.images[item.album.images.length-1].url
+                                    }
+                                    scrollitemimage.className = "searchresultimg"
+                                    scrollitem.appendChild(scrollitemimage)
+                                    
+                                    scrollitem.style.backgroundColor = `rgba(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},.2)`
+
+                                    searchresults.appendChild(scrollitem)
+                                }
+                            }
                         }
                     }
                 }
