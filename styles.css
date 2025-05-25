@@ -1,0 +1,106 @@
+@font-face {
+    font-family: font;
+    src: url(font200.woff2);
+    font-weight: 200;
+}
+
+@font-face {
+    font-family: font;
+    src: url(font300.woff2);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: font;
+    src: url(font400.woff2);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: font;
+    src: url(font500.woff2);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: font;
+    src: url(font600.woff2);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: font;
+    src: url(font700.woff2);
+    font-weight: 700;
+}
+
+
+:root {
+    --bgcolor: 
+}
+
+* {
+    position: absolute;
+    box-sizing: border-box;
+    margin: 0;
+    font-size: medium;
+    font-weight: 600;
+    font-family: font;
+    color: white;
+}
+
+body {
+    background-color: black;
+}
+
+#searchpage {
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+}
+
+#searchtop {
+    width: 100vw;
+    height: 50px;
+    left: 0;
+    top: 0;
+    background-color: rgb(30,30,30);
+}
+
+#searchbar {
+    width: 80vw;
+    height: 35px;
+    left: 15px;
+    top: 7.5px;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 0;
+    background-color: rgb(40,40,40);
+    padding-left: 45px;
+}
+
+#searchbarimg {
+    width: 25px;
+    height: 25px;
+    left: 25px;
+    top: 12.5px;
+    filter: invert(1)
+}
+
+#searchbarimg {
+    width: 25px;
+    height: 25px;
+    left: 25px;
+    top: 12.5px;
+    filter: invert(1)
+}
+
+#searchresults {
+    width: 100vw;
+    height: calc(100vh - 50px);
+    left: 0;
+    bottom: 0px;
+    background-color: rgb(15,15,15);
+    position: absolute;
+}

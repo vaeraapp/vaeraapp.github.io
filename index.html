@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" 
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div id="searchpage">
+            <div id="searchtop">
+                <input id="searchbar">
+                <img src="search.png" id="searchbarimg">
+            </div>
+            <div id="searchresults">
+
+            </div>
+        </div>
+        <script>
+            const searchbar = document.getElementById("searchbar")
+            const searchresults = document.getElementById("searchresults")
+
+            let searchid = 0
+            searchbar.addEventListener("input",async () => {
+                const text = searchbar.value.trim()
+                if (text.length > 0) {
+                    searchid = searchid + 1
+                    const searchidrn = searchid
+                    const req = await fetch(`https://9121-2600-4040-25a7-d500-2809-324-8aa0-5180.ngrok-free.app/search?q=${text}&type=track`,{
+                        headers: {
+                            "ngrok-skip-browser-warning": "true"
+                        }
+                    })
+                    if (req.status === 200 && searchid === searchidrn) {
+                        console.log(await req.json())
+                        while (searchresults.firstChild) {
+                            searchresults.removeChild(searchresults.lastChild)
+                        }
+                    }
+                }
+            })
+        </script>
+    </body>
+</html>
